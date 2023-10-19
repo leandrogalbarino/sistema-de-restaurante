@@ -2,6 +2,16 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+// Sobre cada mesa, guardar o número da mesa e se está livre ou ocupada; se estiver ocupada, guardar a quantidade de
+// pessoas sentadas e o número da comanda. Cada mesa possui uma comanda.
+struct mesa{
+    int numero_da_mesa;
+    bool livre;
+    int comanda;
+    struct mesa *prox;
+}; typedef struct mesa *Mesa; 
+// Cada mesa possui uma comanda.
+
 // Crie um sistema para gerenciamento de um restaurante que satisfaça aos seguintes requisitos:
 // 1. O restaurante possui n mesas de 4 lugares. Estas mesas são organizadas seguindo uma forma de matriz (linhas e colunas),
 // e o usuário informa como é esta distribuição (por exemplo, observe a figura abaixo: há 15 mesas, e elas estão distribuídas
@@ -13,21 +23,32 @@
 
 // quantas_meses_o_restaurante_possui();
 // linhas * colunas;
+Mesa inicializa_mesas(int linhas, int colunas){
+    Mesa restaurante = NULL;
+    int i,j;
+
+    for(i=0;i<linhas;i++){
+        for(j=0;j<colunas;j++){
+            Mesa nova_mesa = (Mesa*)malloc(sizeof(Mesa));
+
+            if(nova_mesa != NULL){
+                nova_mesa->numero_da_mesa = i * colunas + j + 1; //calcula número único para cada mesa criada
+                nova_mesa->livre = true;
+                nova_mesa->comanda = 0;
+
+                nova_mesa->prox = restaurante;
+                restaurante = nova_mesa;
+            }
+        }
+    }
+
+    return restaurante;
+}
 
 // Quando chega um grupo de pessoas ao restaurante, é informado o número de pessoas e é atribuída uma mesa para tal
 // grupo. Caso o grupo seja formado por mais de 4 pessoas, então eles são divididos em diversos subgrupos, mas não há
 // garantia de que sentarão em mesas adjacentes.
 
-
-// Sobre cada mesa, guardar o número da mesa e se está livre ou ocupada; se estiver ocupada, guardar a quantidade de
-// pessoas sentadas e o número da comanda. Cada mesa possui uma comanda.
-struct mesa{
-    int numero_da_mesa;
-    bool livre;
-    int comanda;
-    struct mesa *prox;
-}; typedef struct mesa *Mesa; 
-// Cada mesa possui uma comanda.
 
 
 // Ocupação das mesas (número da mesa e quantidade de pessoas que ocupam a mesa) - o usuário pode pesquisar
