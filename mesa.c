@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "mesa.h"
+#include "pilha.h"
 
 // Crie um sistema para gerenciamento de um restaurante que satisfaça aos seguintes requisitos:
 // 1. O restaurante possui n mesas de 4 lugares. Estas mesas são organizadas seguindo uma forma de matriz (linhas e colunas),
@@ -37,3 +38,7 @@ Mesa inicializa_mesas(int linhas, int colunas){
 
     return restaurante;
 }
+
+
+
+

@@ -2,11 +2,10 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "mesa.h"
+#include "pilha.h"
 
 // Quando chega um grupo de pessoas ao restaurante, é informado o número de pessoas e é atribuída uma mesa para tal
 // grupo. Caso o grupo seja formado por mais de 4 pessoas, então eles são divididos em diversos subgrupos
-
-
 
 // Ocupação das mesas (número da mesa e quantidade de pessoas que ocupam a mesa) - o usuário pode pesquisar
 // por número de mesa ou então consultar todas as mesas;
@@ -14,7 +13,6 @@
 // for (mesas)
 // if numero_da_mesa == mesa_digitada
 // Ocupação das mesas (número da mesa e quantidade de pessoas que ocupam a mesa)
-
 
 
 struct pilha{ 
@@ -27,6 +25,7 @@ struct fila{
     struct fila *ant;
     struct fila *prox;
 }; typedef struct fila Fila;
+
 // PESSOA 1 - CRIA UM NO - SENHA DO GRUPO
 // PESSOA 2 - CRIA UM NO - SENHA DO GRUPO
 // PESSOA 3 - CRIA UM NO - SENHA DO GRUPO
@@ -40,7 +39,7 @@ struct fila{
 // mesa e outros ainda ficarem na fila (em razão do tamanho da mesa). 
 //  senha é útilizada para colocar membros de um determinado grupo em uma mesa;
  
-    // DETALHES
+// DETALHES
 // Caso não existam mesas suficientes, deve ser formada uma fila de espera.  
 // Grupos diferentes não compartilham mesas, mesmo que haja lugar vago em certa mesa (ex: se houver 2 grupos de 1 pessoa cada, estes 2 grupos ocuparão 2 mesas, e não compartilharão uma única mesa de 4 lugares). 
 
