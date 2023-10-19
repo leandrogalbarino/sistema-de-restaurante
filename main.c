@@ -34,7 +34,7 @@ Mesa inicializa_mesas(int linhas, int colunas){
             if(nova_mesa != NULL){
                 nova_mesa->numero_da_mesa = i * colunas + j + 1; //calcula número único para cada mesa criada
                 nova_mesa->livre = true;
-                nova_mesa->comanda = 0;
+                nova_mesa->comanda = i * colunas + j + 1; //uma comanda por mesa então é feito o mesmo calculo
 
                 nova_mesa->prox = restaurante;
                 restaurante = nova_mesa;
