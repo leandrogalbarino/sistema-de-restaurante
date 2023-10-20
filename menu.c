@@ -14,29 +14,29 @@ void esperar_enter()
 void menu_opcoes(int escolha)
 {
 
-    switch(escolha)
+    switch (escolha)
     {
-        case 1:
-            //se há disponibilidade na mesa então adicionar grupo
-            //senão ir para fila de espera
-            break;
-        case 2:
-            //finalizar refeicao/liberar mesa(liberar a mesa, chamar clientes da fila de espera (se houver), e arrumar mesa)
-            break;
-        case 3:
-            //Desistir de esperar (sair da fila de espera)
-            break;
-        case 4:
-            //Arrumar mesa (retirar pratos da pilha)
-            break;
-        case 5:
-            //Repor pratos (adicionar pratos na pilha)
-            break;
-        case 6:
-            //Imprimir pilha de pratos, fila de espera e ocupação das mesas,
-            break;
-        default:
-            break;
+    case 1:
+        // se há disponibilidade na mesa então adicionar grupo
+        // senão ir para fila de espera
+        break;
+    case 2:
+        // finalizar refeicao/liberar mesa(liberar a mesa, chamar clientes da fila de espera (se houver), e arrumar mesa)
+        break;
+    case 3:
+        // Desistir de esperar (sair da fila de espera)
+        break;
+    case 4:
+        // Arrumar mesa (retirar pratos da pilha)
+        break;
+    case 5:
+        // Repor pratos (adicionar pratos na pilha)
+        break;
+    case 6:
+        // Imprimir pilha de pratos, fila de espera e ocupação das mesas,
+        break;
+    default:
+        break;
     }
     esperar_enter();
 }
@@ -72,5 +72,10 @@ void menu()
         menu_opcoes(escolha);
 
     } while (escolha != 7);
+    // 1) Chegar (grupo de) clientes ao restaurante (implica em ocupar mesa se há disponibilidade ou ir pra fila de espera)
+    // 2) Finalizar refeição/liberar mesa (liberar a mesa, chamar clientes da fila de espera (se houver), e arrumar mesa)
+    // 3) Desistir de esperar (sair da fila de espera)
+    // 4) Arrumar mesa (retirar pratos da pilha)
+    // 5) Repor pratos (adicionar pratos na pilha)
+    // 6) Imprimir pilha de pratos, fila de espera e ocupação das mesas, conforme descrito a seguir:
 }
-
