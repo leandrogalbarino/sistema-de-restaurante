@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "mesa.h"
+#include "pratos.h"
 
 void esperar_enter()
 {

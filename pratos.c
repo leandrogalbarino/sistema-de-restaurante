@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "pratos.h"
+#include "mesa.h"
 
 Pilha *pilha_criar()
 {
@@ -14,12 +15,6 @@ bool vefica_pratos_limpos(Pilha *pratos);
 
 // adiciona prato limpo
 
-Mesa *mesa_liberar();
-// Clientes podem finalizar a refeição e sair do restaurante, liberando as mesas; com isso, os clientes que por ventura
-// aguardam na fila podem sentar-se (saindo da fila de espera).
-
-bool verificar_mesas_livre();
-// Se houver mesas livres retorna TRUE, assim o proximo da fila entra, se não tiver fila, o proximo que entrar já é colocado em uma mesa;
 
 Pilha *arruma_mesa(Pilha *pratos);
 // Como as mesas possuem 4 lugares, sempre são colocados 4 pratos.
