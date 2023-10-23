@@ -15,8 +15,7 @@ bool vefica_pratos_limpos(Pilha *pratos);
 
 // adiciona prato limpo
 
-
-Pilha *arruma_mesa(Pilha *pratos);
+Pilha *pratos_arrumar_mesa(Pilha *pratos);
 // Como as mesas possuem 4 lugares, sempre são colocados 4 pratos.
 
 // Um funcionário repõe pratos na pilha de tempos (não sendo necessário que a pilha esteja vazia para que novos pratos sejam adicionados).

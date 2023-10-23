@@ -1,104 +1,172 @@
-#include "filas.h"
+#include "fila.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-struct fila {
-  int senha_grupo;
-  int pessoas;
-  struct fila *prox;
-};
-typedef struct fila Fila;
-
-// senha unica
-// O grupo que aguarda na fila recebe uma senha
-int fila_gerar_senha();
-
-int fila_atualiza_pessoas_grupo() {}
-// Pode haver grupos grandes, e neste caso, assim que liberar uma mesa, alguns
-// membros do grupo podem conseguir a mesa e outros ainda ficarem na fila (em
-// razão do tamanho da mesa).
-
-// IMPORTANTEEEE!!!!!
-//  senha é útilizada para colocar membros de um determinado grupo em uma mesa;
-
-Fila *fila_criar() { return NULL; }
-
-Fila *fila_inserir(Fila *l, int senha) {
-  Fila *novo = (Fila *)malloc(sizeof(Fila));
-  novo->prox = NULL;
-  novo->senha_grupo = senha;
-  if (l == NULL)
-    return novo;
-  Fila *p;
-  while (p->prox != NULL) {
-    p = p->prox;
-  }
-  p->prox = novo;
-  return l;
+// CRIA FILA!!!
+Fila *fila_criar()
+{
+    return NULL;
 }
 
-Fila *fila_adicionar_grupo(Fila *l, int tamanho) {
-  Fila *f = l;
-  int senha;
-  senha = fila_gerar_senha();
-  for (int i = 0; i < tamanho; i++) {
-    f = fila_inserir(l, senha)
-  }
-  return f;
-}
-
-Fila *fila_abandonar(Fila *l, Fila *grupo, int senha) {
-  Fila *ant = l;
-  Fila *novo;
-
-  while (ant->prox != grupo) {
-    ant = ant->prox;
-  }
-  if (ant == NULL) {
-    novo = l->prox;
+// REMOVE UM NO DA FILA!!
+Fila *fila_remover(Fila *l)
+{
+    Fila *nova;
+    if (l = NULL)
+    {
+        printf("Fila Vazia!!\n");
+        return l;
+    }
+    nova = l->prox;
     free(l);
-    return novo;
-  }
-  Fila *p;
+    return nova;
+}
 
-  for (p = grupo; p != NULL; p = p->prox) {
-    if (p->senha != grupo->senha) {
-      ant->prox = p;
-      break;
-    } else {
-      ant->prox = p->prox;
-      free(p);
+// QUANDO FOR ENCONTRADO UMA MESA VAZIA, CHAMAR ESSA FUNÇÃO PARA TIRAR 4 PESSOAS DA FILA!!
+Fila *fila_mesa_encontrada(Fila *l)
+{
+    Fila *nova;
+    if (l->pessoas > 4)
+    {
+        l->pessoas = l->pessoas - 4;
+        printf("Foi encontrado uma mesa para 4 membros do seu grupo!!\n");
+        printf("Ainda ficaram %d na Fila de Espera!!\n", l->pessoas);
     }
-  }
-  return l;
-}
-
-Fila *fila_procurar(Fila *l, int senha) {
-  Fila *p;
-  for (p = l; p != NULL; p = p->prox) {
-    if (p->senha == senha) {
-      return p;
+    else
+    {
+        nova = fila_remover(l);
+        printf("Foi encontrado uma mesa para o seu grupo!!\n");
+        return nova;
     }
-  }
-  return NULL;
+    return l;
 }
 
-void fila_sair(Fila *l) {
-  if (l == NULL) {
-    printf("Nao existem grupos na fila!!\n") return;
-  }
-  int senha;
-  fila *grupo;
-  printf("Por favor! Digite a senha do grupo:");
-  scanf("%d", &senha) grupo = fila_procurar(l, senha);
-
-  if (grupo != NULL) {
-    printf("Seu grupo foi retirado da fila!!\n Nosso restaurante sempre te "
-           "espera.\n") l = fila_abandonar(l, grupo, senha);
-  } else {
-    printf("Seu grupo nao foi encontrado na fila!!\n")
-  }
-  return l;
+//  SENHA UNICA
+int fila_gerar_senha(Fila *l)
+{
+    int nova_senha;
+    Fila *p = l;
+    if (l = NULL)
+    {
+        nova_senha = 1;
+        return nova_senha;
+    }
+    while (p->prox != NULL)
+    {
+        p = p->prox;
+    }
+    nova_senha = p->senha + 1;
 }
-// Grupos podem desistir de esperar por uma mesa e com isso liberar suas senhas
-// de espera (sair da fila de espera).
+
+// INSERE O GRUPO NA FILA!!
+Fila *fila_inserir(Fila *l, int senha)
+{
+    Fila *novo = (Fila *)malloc(sizeof(Fila));
+    novo->prox = NULL;
+    novo->senha = senha;
+
+    if (l == NULL)
+        return novo;
+    Fila *p;
+    while (p->prox != NULL)
+    {
+        p = p->prox;
+    }
+    p->prox = novo;
+    return l;
+}
+
+// ADICIONA UM GRUPO E CRIA UMA SENHA
+Fila *fila_adicionar_grupo(Fila *l, int tamanho)
+{
+    Fila *f = l;
+    int senha;
+    senha = fila_gerar_senha(l);
+    f = fila_inserir(l, senha);
+    return f;
+}
+
+// UM GRUPO ABANDONA A FILA
+Fila *fila_abandonar(Fila *l, Fila *grupo, int senha)
+{
+    Fila *ant = l;
+    Fila *p;
+    if (l = grupo)
+    {
+        p = l->prox;
+        free(l);
+        return p;
+        // returno o proximo ou NULL, se for o primeiro elemento!!
+    }
+
+    while (ant->prox != grupo)
+    {
+        ant = ant->prox;
+    }
+
+    p = grupo->prox;
+    ant->prox = p;
+    free(grupo);
+    return l;
+}
+
+// PROCURA PRIMEIRA PESSOA DO GRUPO NA FILA
+Fila *fila_procurar(Fila *l, int senha)
+{
+    Fila *p;
+    for (p = l; p != NULL; p = p->prox)
+    {
+        if (p->senha == senha)
+        {
+            return p;
+        }
+    }
+    return NULL;
+}
+
+// CHAMA AS FUNCOES PARA REMOVER UM GRUPO DA FILA
+Fila *fila_sair(Fila *l)
+{
+    if (l == NULL)
+    {
+        printf("Nao existem grupos na fila!!\n");
+        return;
+    }
+    int senha;
+    Fila *grupo;
+    printf("Por favor! Digite a senha do grupo:");
+    scanf("%d", &senha);
+    grupo = fila_procurar(l, senha);
+
+    if (grupo != NULL)
+    {
+        printf("Seu grupo foi retirado da fila!!\n Voce eh sempre bem-vindo novamente.\n");
+        l = fila_abandonar(l, grupo, senha);
+    }
+    else
+    {
+        printf("Seu grupo nao foi encontrado na fila!!\n");
+    }
+    return l;
+}
+
+// IMPRIMIR FILA DE ESPERA
+void fila_imprimir(Fila *l)
+{
+    int senha;
+    Fila *p;
+    if (l == NULL)
+    {
+        printf("Fila Vazia!!\n");
+        return;
+    }
+
+    int fila_posicao = 1;
+
+    printf("GRUPOS NA FILA:\n");
+    for (p = l; p != NULL; p = p->prox)
+    {
+        printf("%d - Grupo com a Senha:%d\n", fila_posicao, p->senha);
+        fila_posicao++;
+    }
+}
