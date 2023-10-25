@@ -123,6 +123,7 @@ void mesa_pesquisar(Mesa *restaurante)
 
 Mesa* chegar_grupo(Mesa* restaurante, Fila* fila){
     int tamanho;
+    int senha = fila_gerar_senha(fila);
     Mesa* mesa_atual = restaurante;
     bool mesa_livre = verificar_mesas_livre(restaurante);
 
@@ -131,6 +132,7 @@ Mesa* chegar_grupo(Mesa* restaurante, Fila* fila){
 
     Fila* grupo = NULL;
     grupo->pessoas = tamanho;
+    grupo->senha = senha;
 
     while(mesa_atual != NULL){
         if(mesa_livre == true){
@@ -147,7 +149,6 @@ Mesa* chegar_grupo(Mesa* restaurante, Fila* fila){
 
         }
         else{
-            int senha = fila_gerar_senha(fila);
             fila = fila_inserir(fila,senha);
             printf("Seu grupo foi adicionado a fila de espera com a senha %d.\n", senha); 
         }
