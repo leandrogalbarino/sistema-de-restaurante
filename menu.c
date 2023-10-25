@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "mesa.h"
+#include "fila.h"
 #include "pratos.h"
 
 void esperar_enter()
@@ -12,14 +13,14 @@ void esperar_enter()
     getchar(); // Aguarda o Enter ser pressionado
 }
 
-void menu_opcoes(int escolha)
+void menu_opcoes(int escolha, Mesa* restaurante, Fila* fila)
 {
 
     switch (escolha)
     {
     case 1:
-        // se há disponibilidade na mesa então adicionar grupo
-        // senão ir para fila de espera
+        //1) Chegar (grupo de) clientes ao restaurante (implica em ocupar mesa se há disponibilidade ou ir pra fila de espera)
+        //chegar_grupo();
         break;
     case 2:
         // finalizar refeicao/liberar mesa(liberar a mesa, chamar clientes da fila de espera (se houver), e arrumar mesa)
@@ -42,7 +43,7 @@ void menu_opcoes(int escolha)
     esperar_enter();
 }
 
-void menu()
+void menu(Mesa* restaurante, Fila* fila)
 {
     char sair;
     int escolha;
@@ -70,7 +71,7 @@ void menu()
             printf("\n");
         } while (escolha < 1 || escolha > 7);
 
-        menu_opcoes(escolha);
+        menu_opcoes(escolha, restaurante, fila);
 
     } while (escolha != 7);
     // 1) Chegar (grupo de) clientes ao restaurante (implica em ocupar mesa se há disponibilidade ou ir pra fila de espera)

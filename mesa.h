@@ -22,11 +22,14 @@ Mesa* inicializa_mesas(int linhas, int colunas);
 void listar_mesas(Mesa* restaurante);
 
 
-void mesa_pesquisar();
+void mesa_pesquisar(Mesa* restaurante);
 // for (mesas)
 // if numero_da_mesa == mesa_digitada
 // Ocupação das mesas (número da mesa e quantidade de pessoas que ocupam a mesa)
 
+bool verificar_mesas_livre(Mesa *restaurante);
+
+Mesa* mesa_liberar(Mesa* restaurante);
 
 
 
