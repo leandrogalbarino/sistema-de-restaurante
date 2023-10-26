@@ -20,7 +20,7 @@ void menu_opcoes(int escolha, Mesa* restaurante, Fila* fila)
     {
     case 1:
         //1) Chegar (grupo de) clientes ao restaurante (implica em ocupar mesa se há disponibilidade ou ir pra fila de espera)
-        //chegar_grupo();
+        //restaurante = chegar_grupo(restaurante,fila);
         break;
     case 2:
         // finalizar refeicao/liberar mesa(liberar a mesa, chamar clientes da fila de espera (se houver), e arrumar mesa)
@@ -67,6 +67,7 @@ void menu(Mesa* restaurante, Fila* fila)
             if (escolha < 1 || escolha > 7)
             {
                 printf("POR FAVOR DIGITE UM NUMERO VALIDO!\n");
+                break;
             }
             printf("\n");
         } while (escolha < 1 || escolha > 7);
@@ -80,4 +81,10 @@ void menu(Mesa* restaurante, Fila* fila)
     // 4) Arrumar mesa (retirar pratos da pilha)
     // 5) Repor pratos (adicionar pratos na pilha)
     // 6) Imprimir pilha de pratos, fila de espera e ocupação das mesas, conforme descrito a seguir:
+}
+
+int main(){
+    Mesa* restaurante = inicializa_mesas();
+    Fila* fila = fila_criar();
+    menu(restaurante, fila);
 }

@@ -3,16 +3,34 @@
 #include <stdlib.h>
 
 // CRIA FILA!!!
-Fila *fila_criar()
+Fila* fila_criar()
 {
     return NULL;
 }
+
+int fila_gerar_senha(Fila *l){
+    int nova_senha;
+    Fila* p = l;
+
+    if (l == NULL){
+        nova_senha = 1;
+        return nova_senha;
+    }
+    while (p->prox != NULL)
+    {
+        p = p->prox;
+    }
+    nova_senha = p->senha + 1;
+
+    return nova_senha;
+}
+
 
 // REMOVE UM NO DA FILA!!
 Fila *fila_remover(Fila *l)
 {
     Fila *nova;
-    if (l = NULL)
+    if (l == NULL)
     {
         printf("Fila Vazia!!\n");
         return l;
@@ -42,21 +60,7 @@ Fila *fila_mesa_encontrada(Fila *l)
 }
 
 //  SENHA UNICA
-int fila_gerar_senha(Fila *l)
-{
-    int nova_senha;
-    Fila *p = l;
-    if (l = NULL)
-    {
-        nova_senha = 1;
-        return nova_senha;
-    }
-    while (p->prox != NULL)
-    {
-        p = p->prox;
-    }
-    nova_senha = p->senha + 1;
-}
+
 
 // INSERE O GRUPO NA FILA!!
 Fila *fila_inserir(Fila *l, int senha)
@@ -91,7 +95,7 @@ Fila *fila_abandonar(Fila *l, Fila *grupo, int senha)
 {
     Fila *ant = l;
     Fila *p;
-    if (l = grupo)
+    if (l == grupo)
     {
         p = l->prox;
         free(l);
@@ -130,7 +134,7 @@ Fila *fila_sair(Fila *l)
     if (l == NULL)
     {
         printf("Nao existem grupos na fila!!\n");
-        return;
+        return l;
     }
     int senha;
     Fila *grupo;
@@ -170,3 +174,37 @@ void fila_imprimir(Fila *l)
         fila_posicao++;
     }
 }
+
+/*
+Fila* cria_grupo(Fila* f){
+    int tamanho;
+
+    printf("Insira a quantidade de pessoas do seu grupo: ");
+    scanf("%d", &tamanho);
+
+    Fila* grupo = (Fila*)malloc(sizeof(Fila));
+    grupo->pessoas = tamanho;
+    grupo->senha = gera_senha(f);
+    grupo->prox = NULL;
+
+    return grupo;
+}
+*/
+
+/*
+Fila* insere_grupo_fila(Fila* f, Fila* grupo){
+    Fila* p = f;
+
+    if(f == NULL){
+        f = grupo;
+        return f;
+    }
+    
+    while(p->prox != NULL){
+        p = p->prox;
+    }
+
+    p->prox = grupo;
+    return f;
+}
+*/

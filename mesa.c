@@ -5,19 +5,21 @@
 #include "fila.h"
 #include "pratos.h"
 
-Mesa *inicializa_mesas(int linhas, int colunas)
-{
-    Mesa *restaurante = NULL;
-    int i, j;
+Mesa* inicializa_mesas(){
+    Mesa* restaurante = NULL;
+    int i, j, linhas, colunas;
 
-    for (i = 0; i < linhas; i++)
-    {
-        for (j = 0; j < colunas; j++)
-        {
-            Mesa *nova_mesa = (Mesa *)malloc(sizeof(Mesa));
+    printf("Informe a dimensao das linhas da mesa: ");
+    scanf("%d", &linhas);
+    printf("Informe a dimensao das colunas da mesa: ");
+    scanf("%d", &colunas);
 
-            if (nova_mesa != NULL)
-            {
+
+    for (i = 0; i < linhas; i++){
+        for (j = 0; j < colunas; j++){
+            Mesa* nova_mesa = (Mesa *)malloc(sizeof(Mesa));
+
+            if (nova_mesa != NULL){
                 nova_mesa->numero_da_mesa = i * colunas + j + 1; // calcula número único para cada mesa criada
                 nova_mesa->livre = true;
                 nova_mesa->comanda = i * colunas + j + 1; // uma comanda por mesa então é feito o mesmo calculo
@@ -120,7 +122,7 @@ void mesa_pesquisar(Mesa *restaurante)
     } while (mesa_atual != NULL && tecla == 's');
 }
 
-
+/*
 Mesa* chegar_grupo(Mesa* restaurante, Fila* fila){
     int tamanho;
     int senha = fila_gerar_senha(fila);
@@ -158,3 +160,31 @@ Mesa* chegar_grupo(Mesa* restaurante, Fila* fila){
 
     return restaurante;
 }
+*/
+
+
+/*
+Mesa* chegar_grupo(Mesa* restaurante, Fila* f){
+    Fila* grupo = cria_grupo(f);
+
+    Mesa* mesa_atual = restaurante;
+    bool mesa_livre = verificar_mesas_livre(restaurante);
+
+    f = insere_grupo_fila(f,grupo);
+
+    if(mesa_livre == true){
+        while(mesa_atual != NULL && mesa_atual->livre != true){
+            mesa_atual = mesa_atual->prox;
+        }
+
+        if(grupo->pessoas > 4){
+            mesa_atual->livre = false;
+            mesa_atual->pessoas_sentadas = 4;
+            grupo->pessoas = grupo->pessoas - 4;
+        }
+    }
+    else{
+
+    }
+}
+*/

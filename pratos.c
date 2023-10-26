@@ -29,4 +29,4 @@ Pilha *pilha_desempilhar();
 // Caso um grupo com menos de 4 pessoas ocupe uma certa mesa, os pratos excedentes são retirados da mesa e recolocados na pilha de pratos.
 Pilha *empilhar_pratos_nao_ocupados();
 
-adicionar_prato_limpo(Pilha *pratos);
+Pilha* adicionar_prato_limpo(Pilha *pratos);

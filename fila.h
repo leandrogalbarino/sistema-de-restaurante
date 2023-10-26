@@ -33,4 +33,14 @@ Fila *fila_sair(Fila *l);
 
 void fila_imprimir(Fila *l);
 
+
+/*
+Fila* cria_grupo(Fila* f);
+Fila* insere_grupo_fila(Fila* f, Fila* grupo);
+*/
+
+
+
 #endif
+
+

@@ -13,7 +13,7 @@ struct mesa{
     struct mesa *prox;
 }; typedef struct mesa Mesa; 
 
-Mesa* inicializa_mesas(int linhas, int colunas);
+Mesa* inicializa_mesas();
 
 
 // Ocupação das mesas (número da mesa e quantidade de pessoas que ocupam a mesa) - o usuário pode pesquisar
