@@ -134,25 +134,26 @@ Mesa* chegar_grupo(Mesa* restaurante, Fila* fila){
     grupo->pessoas = tamanho;
     grupo->senha = senha;
 
-    while(mesa_atual != NULL){
-        if(mesa_livre == true){
-            if(grupo->pessoas > 4){
-                mesa_atual->livre = false;
-                mesa_atual->pessoas_sentadas = 4;
-                grupo->pessoas = grupo->pessoas - 4;
-                fila = fila_inserir(grupo,grupo->senha);
-            }
-            else{
-                mesa_atual->livre = false;
-                mesa_atual->pessoas_sentadas = grupo->pessoas;
-            }
-
+    if(mesa_livre == true){
+        while(mesa_atual != NULL && mesa_atual->livre != true){
+            mesa_atual = mesa_atual->prox;
         }
+        //se o grupo tiver mais que 4 pessoas
+        if(grupo->pessoas > 4){
+            mesa_atual->livre = false;
+            mesa_atual->pessoas_sentadas = 4;
+            grupo->pessoas = grupo->pessoas - 4;
+            fila = fila_inserir(grupo,grupo->senha);
+        }
+        //senão o grupo possui 4 pessoas
         else{
-            fila = fila_inserir(fila,senha);
-            printf("Seu grupo foi adicionado a fila de espera com a senha %d.\n", senha); 
+            mesa_atual->livre = false;
+            mesa_atual->pessoas_sentadas = grupo->pessoas;
         }
-        mesa_atual = mesa_atual->prox;
+    }
+    else{
+        fila = fila_inserir(fila,senha);
+        printf("Seu grupo foi adicionado a fila de espera com a senha %d.\n", senha); 
     }
 
     return restaurante;
