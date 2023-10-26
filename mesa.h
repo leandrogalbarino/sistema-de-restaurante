@@ -8,7 +8,8 @@
 struct mesa{
     int numero_da_mesa;
     bool livre;
-    int pessoas_sentadas;       
+    int pessoas_sentadas;    
+    int pratos;   
     int comanda;
     struct mesa *prox;
 }; typedef struct mesa Mesa; 

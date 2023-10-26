@@ -62,6 +62,7 @@ Fila *fila_mesa_encontrada(Fila *l)
 //  SENHA UNICA
 
 
+
 // INSERE O GRUPO NA FILA!!
 Fila *fila_inserir(Fila *l, int senha)
 {
@@ -89,6 +90,19 @@ Fila *fila_adicionar_grupo(Fila *l, int tamanho)
     f = fila_inserir(l, senha);
     return f;
 }
+
+// CRIA GRUPO
+Fila* cria_grupo(Fila* l){
+    int tamanho;
+    Fila* novo;
+    printf("Insira a quantidade de pessoas do seu grupo: ");
+    scanf("%d", &tamanho);
+
+    novo = fila_adicionar_grupo(l, tamanho);
+
+    return novo;
+}
+
 
 // UM GRUPO ABANDONA A FILA
 Fila *fila_abandonar(Fila *l, Fila *grupo, int senha)
@@ -174,37 +188,3 @@ void fila_imprimir(Fila *l)
         fila_posicao++;
     }
 }
-
-/*
-Fila* cria_grupo(Fila* f){
-    int tamanho;
-
-    printf("Insira a quantidade de pessoas do seu grupo: ");
-    scanf("%d", &tamanho);
-
-    Fila* grupo = (Fila*)malloc(sizeof(Fila));
-    grupo->pessoas = tamanho;
-    grupo->senha = gera_senha(f);
-    grupo->prox = NULL;
-
-    return grupo;
-}
-*/
-
-/*
-Fila* insere_grupo_fila(Fila* f, Fila* grupo){
-    Fila* p = f;
-
-    if(f == NULL){
-        f = grupo;
-        return f;
-    }
-    
-    while(p->prox != NULL){
-        p = p->prox;
-    }
-
-    p->prox = grupo;
-    return f;
-}
-*/

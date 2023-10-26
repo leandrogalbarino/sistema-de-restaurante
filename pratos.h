@@ -5,18 +5,22 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-
 struct pilha{ 
     struct pilha *prox;
 }; typedef struct pilha Pilha;
-// implementar funcoes de pilha;
 
+Pilha *pilha_criar();
 
+Pilha *pilha_empilhar(Pilha *p);
 
+Pilha *pilha_desempilhar(Pilha *p);
 
+int verif_pratos_limpos(Pilha *pratos);
 
+Pilha *repor_pratos(Pilha *pratos);
 
+Pilha *pratos_arrumar_mesa(Pilha *pratos, Mesa *mesa);
 
-
+Pilha *empilhar_pratos_nao_ocupados(Pilha *pratos, Mesa *mesa);
 
 #endif
