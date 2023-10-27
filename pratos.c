@@ -4,11 +4,13 @@
 #include "pratos.h"
 #include "mesa.h"
 
+// CRIA PIHLA VAZIA
 Pilha *pilha_criar()
 {
     return NULL;
 }
 
+// CRIA UM NOVO NO NO TOPO DA PILHA
 Pilha *pilha_empilhar(Pilha *p)
 {
     Pilha *novo;
@@ -16,6 +18,7 @@ Pilha *pilha_empilhar(Pilha *p)
     return novo;
 }
 
+// DESEMPILHA, REMOVENDO O NO DO TOPO DA PILHA
 Pilha *pilha_desempilhar(Pilha *p)
 {
     Pilha *novo;
@@ -38,7 +41,7 @@ int verif_pratos_limpos(Pilha *pratos)
 }
 
 
-//  Repor pratos (adicionar pratos na pilha)
+//  REPOE PRATOS
 Pilha *repor_pratos(Pilha *pratos)
 {
     int quant_pratos;
@@ -53,7 +56,7 @@ Pilha *repor_pratos(Pilha *pratos)
     return novo;
 };
 
-// Como as mesas possuem 4 lugares, sempre são colocados 4 pratos.
+// COMO AS MESAS POSSUEM 4 LUGARES, SEMPRE SAO COLOCADOS 4 PRATOS
 Pilha *pratos_arrumar_mesa(Pilha *pratos, Mesa *mesa)
 {
     Pilha *nova;
@@ -75,7 +78,7 @@ Pilha *pratos_arrumar_mesa(Pilha *pratos, Mesa *mesa)
     return nova;
 }
 
-// Caso um grupo com menos de 4 pessoas ocupe uma certa mesa, os pratos excedentes são retirados da mesa e recolocados na pilha de pratos.
+// CASO UM GRUPO COM MENOS DE 4 PESSOAS OCUPE UMA MESA, RETIRA OS PRATOS QUE SOBRARAM
 Pilha *empilhar_pratos_nao_ocupados(Pilha *pratos, Mesa *mesa)
 {
     Pilha *nova = pratos;
@@ -90,6 +93,7 @@ Pilha *empilhar_pratos_nao_ocupados(Pilha *pratos, Mesa *mesa)
     return nova;
 }
 
+// IMPRIME A QUANTIDADE DE PRATOS
 void pratos_imprimir(Pilha *pratos)
 {   
     int contador = verif_pratos_limpos(pratos);
