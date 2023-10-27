@@ -8,6 +8,7 @@ Fila *fila_criar()
     return NULL;
 }
 
+// GERA UMA SENHA UNICA
 int fila_gerar_senha(Fila *l)
 {
     int nova_senha;
@@ -59,8 +60,6 @@ Fila *fila_mesa_encontrada(Fila *l)
     }
     return l;
 }
-
-//  SENHA UNICA
 
 // INSERE O GRUPO NA FILA!!
 Fila *fila_inserir(Fila *l, int senha)
@@ -127,7 +126,7 @@ Fila *fila_abandonar(Fila *l, Fila *grupo, int senha)
     return l;
 }
 
-// PROCURA PRIMEIRA PESSOA DO GRUPO NA FILA
+// PROCURA O GRUPO NA FILA
 Fila *fila_procurar(Fila *l, int senha)
 {
     Fila *p;
