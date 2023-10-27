@@ -25,7 +25,7 @@ Mesa *inicializa_mesas()
             {
                 nova_mesa->numero_da_mesa = i * colunas + j + 1; // calcula número único para cada mesa criada
                 nova_mesa->livre = true;
-                nova_mesa->comanda = i * colunas + j + 1; // uma comanda por mesa então é feito o mesmo calculo
+                
                 nova_mesa->pratos = 4;
 
                 nova_mesa->prox = restaurante;
@@ -69,18 +69,19 @@ Mesa *mesa_liberar(Mesa *restaurante)
         mesa_atual->livre = true;
         mesa_atual->pessoas_sentadas = 0;
         mesa_atual->pratos = 0;
-        //  PRATOS FORAM RETIRADOS PARA LIMPEZA;
 
-        // PRECISA RETORNAr O RESTAURANTE!
-        // SE NÃO PODE DESFAZER OS NÓS
-        // return mesa_atual;
+        return mesa_atual;
     }
 
     // se não achar volta a mesa sem alteração
     return restaurante;
 }
 
-int mesa_gerar_comanda();
+int mesa_gerar_comanda(){
+    static int comanda = 1;
+
+    return comanda++;
+}
 
 bool verificar_mesas_livre(Mesa *restaurante)
 {
@@ -139,7 +140,7 @@ Mesa *mesa_a_arrumar(Mesa *mesa)
     if (mesa == NULL)
     {
         printf("Nao existem mesas no restaurante!!\n");
-        return;
+        return NULL;
     }
     Mesa *m;
     for (m = mesa; m != NULL; m = m->prox)
@@ -205,7 +206,7 @@ void mesa_pesquisar(Mesa *restaurante)
     } while (tecla == 's');
 }
 
-/*
+
 Mesa* chegar_grupo(Mesa* restaurante, Fila* fila){
     int tamanho;
     int senha = fila_gerar_senha(fila);
@@ -215,7 +216,7 @@ Mesa* chegar_grupo(Mesa* restaurante, Fila* fila){
     printf("Quantas pessoas estao no grupo? ");
     scanf("%d", &tamanho);
 
-    Fila* grupo = NULL;
+    Fila* grupo = (Fila*)malloc(sizeof(Fila));
     grupo->pessoas = tamanho;
     grupo->senha = senha;
 
@@ -228,12 +229,15 @@ Mesa* chegar_grupo(Mesa* restaurante, Fila* fila){
             mesa_atual->livre = false;
             mesa_atual->pessoas_sentadas = 4;
             grupo->pessoas = grupo->pessoas - 4;
+            mesa_atual->comanda = mesa_gerar_comanda();
+
             fila = fila_inserir(grupo,grupo->senha);
         }
         //senão o grupo possui 4 pessoas
         else{
             mesa_atual->livre = false;
             mesa_atual->pessoas_sentadas = grupo->pessoas;
+            mesa_atual->comanda = mesa_gerar_comanda();
         }
     }
     else{
@@ -243,30 +247,4 @@ Mesa* chegar_grupo(Mesa* restaurante, Fila* fila){
 
     return restaurante;
 }
-*/
 
-/*
-Mesa* chegar_grupo(Mesa* restaurante, Fila* f){
-    Fila* grupo = cria_grupo(f);
-
-    Mesa* mesa_atual = restaurante;
-    bool mesa_livre = verificar_mesas_livre(restaurante);
-
-    f = insere_grupo_fila(f,grupo);
-
-    if(mesa_livre == true){
-        while(mesa_atual != NULL && mesa_atual->livre != true){
-            mesa_atual = mesa_atual->prox;
-        }
-
-        if(grupo->pessoas > 4){
-            mesa_atual->livre = false;
-            mesa_atual->pessoas_sentadas = 4;
-            grupo->pessoas = grupo->pessoas - 4;
-        }
-    }
-    else{
-
-    }
-}
-*/

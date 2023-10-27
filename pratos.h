@@ -23,4 +23,6 @@ Pilha *pratos_arrumar_mesa(Pilha *pratos, Mesa *mesa);
 
 Pilha *empilhar_pratos_nao_ocupados(Pilha *pratos, Mesa *mesa);
 
+void pratos_imprimir(Pilha *pratos);
+
 #endif

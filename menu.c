@@ -69,11 +69,12 @@ void menu_opcoes(int escolha, Mesa **mesas, Fila **fila, Pilha **pratos)
     {
     case 1:
         // 1) Chegar (grupo de) clientes ao restaurante (implica em ocupar mesa se há disponibilidade ou ir pra fila de espera)
-        // restaurante = chegar_grupo(restaurante,fila);
+        *mesas = chegar_grupo(*mesas,*fila);
         break;
 
     case 2:
         // finalizar refeicao/liberar mesa(liberar a mesa, chamar clientes da fila de espera (se houver), e arrumar mesa)
+        *mesas = mesa_liberar(*mesas);
         break;
 
     case 3:
