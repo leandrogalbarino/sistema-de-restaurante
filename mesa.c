@@ -101,12 +101,17 @@ bool verificar_mesas_livre(Mesa *restaurante)
 
 // lista todas as mesas
 
-// PODE COLOCAR QUE NAO EXISTEM MESA, SE O RESTAURANTE NAO POSSUIR MESAS 
-void listar_mesas(Mesa *restaurante)
+// PODE COLOCAR QUE NAO EXISTEM MESA, SE O RESTAURANTE NAO POSSUIR MESAS
+void mesa_listar(Mesa *restaurante)
 {
     Mesa *mesas = restaurante;
 
     printf("\tMesas:\n");
+    if (restaurante == NULL)
+    {
+        printf("Nao existem mesas no restaurante!\n");
+        return;
+    }
 
     while (mesas != NULL)
     { // percore todas as mesas do restaurante e imprime elas
@@ -125,6 +130,44 @@ char *mesa_disponibidade(Mesa *mesa)
         return "Disponivel";
     }
     return "Indisponivel";
+}
+
+Mesa *mesa_a_arrumar(Mesa *mesa)
+{
+    int numero_mesa;
+    printf("Digite o numero da mesa que deseja arrumar!!\n");
+    if (mesa == NULL)
+    {
+        printf("Nao existem mesas no restaurante!!\n");
+        return;
+    }
+    Mesa *m;
+    for (m = mesa; m != NULL; m = m->prox)
+    {
+        if (numero_mesa == m->numero_da_mesa)
+        {
+            if (m->livre)
+            {
+                if (m->pratos == 4)
+                {
+                    printf("A mesa ja esta arrumada!!\n");
+                    return NULL;
+                }
+                break;
+            }
+            else
+            {
+                printf("A mesa esta sendo ocupada no momento!!\n");
+                printf("Nao foi possivel arruma-la!\n");
+                return NULL;
+            }
+        }
+    }
+    if (m == NULL)
+    {
+        printf("Nao foi encontrada a mesa com numero %d!!\n", numero_mesa);
+    }
+    return m;
 }
 
 void mesa_pesquisar(Mesa *restaurante)

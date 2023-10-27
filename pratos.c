@@ -23,7 +23,7 @@ Pilha *pilha_desempilhar(Pilha *p)
     free(p);
     return novo;
 }
-
+// VERIFICA A QUANTIDADE DE PRATOS LIMPOS;
 int verif_pratos_limpos(Pilha *pratos)
 {
     int pratos_limpos = 0;
@@ -36,13 +36,9 @@ int verif_pratos_limpos(Pilha *pratos)
     }
     return pratos_limpos;
 }
-// retirar um prato limpo da pilha, e coloca quatro pratos em uma mesa!!!
-// sempre que uma mesa estiver vazia (ainda não ocupada ou recentemente liberada), um funcionário arruma a mesa (coloca pratos que são retirados da pilha).
 
-// adiciona prato limpo
 
-// Um funcionário repõe pratos na pilha de tempos (não sendo necessário que a pilha esteja vazia para que novos pratos sejam adicionados).
-//  5) Repor pratos (adicionar pratos na pilha)
+//  Repor pratos (adicionar pratos na pilha)
 Pilha *repor_pratos(Pilha *pratos)
 {
     int quant_pratos;
@@ -92,4 +88,10 @@ Pilha *empilhar_pratos_nao_ocupados(Pilha *pratos, Mesa *mesa)
         }
     }
     return nova;
+}
+
+void pratos_imprimir(Pilha *pratos)
+{   
+    int contador = verif_pratos_limpos(pratos);
+    printf("Existem %d pratos na pilha\n", contador);
 }

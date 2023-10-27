@@ -31,7 +31,9 @@ Fila *fila_procurar(Fila *l, int senha);
 
 Fila *fila_sair(Fila *l);
 
-void fila_imprimir(Fila *l);
+void fila_quant_pessoas(Fila *l);
+
+void fila_numero_de_grupo(Fila *l);
 
 Fila* cria_grupo(Fila* l);
 

@@ -3,16 +3,18 @@
 #include <stdlib.h>
 
 // CRIA FILA!!!
-Fila* fila_criar()
+Fila *fila_criar()
 {
     return NULL;
 }
 
-int fila_gerar_senha(Fila *l){
+int fila_gerar_senha(Fila *l)
+{
     int nova_senha;
-    Fila* p = l;
+    Fila *p = l;
 
-    if (l == NULL){
+    if (l == NULL)
+    {
         nova_senha = 1;
         return nova_senha;
     }
@@ -24,7 +26,6 @@ int fila_gerar_senha(Fila *l){
 
     return nova_senha;
 }
-
 
 // REMOVE UM NO DA FILA!!
 Fila *fila_remover(Fila *l)
@@ -61,8 +62,6 @@ Fila *fila_mesa_encontrada(Fila *l)
 
 //  SENHA UNICA
 
-
-
 // INSERE O GRUPO NA FILA!!
 Fila *fila_inserir(Fila *l, int senha)
 {
@@ -92,9 +91,10 @@ Fila *fila_adicionar_grupo(Fila *l, int tamanho)
 }
 
 // CRIA GRUPO
-Fila* cria_grupo(Fila* l){
+Fila *cria_grupo(Fila *l)
+{
     int tamanho;
-    Fila* novo;
+    Fila *novo;
     printf("Insira a quantidade de pessoas do seu grupo: ");
     scanf("%d", &tamanho);
 
@@ -102,7 +102,6 @@ Fila* cria_grupo(Fila* l){
 
     return novo;
 }
-
 
 // UM GRUPO ABANDONA A FILA
 Fila *fila_abandonar(Fila *l, Fila *grupo, int senha)
@@ -168,23 +167,26 @@ Fila *fila_sair(Fila *l)
     return l;
 }
 
-// IMPRIMIR FILA DE ESPERA
-void fila_imprimir(Fila *l)
+// LISTAR QUANTIDADE DE PESSOAS NA FILA.
+void fila_quant_pessoas(Fila *l)
 {
-    int senha;
+    int quant_pessoas = 0;
     Fila *p;
-    if (l == NULL)
-    {
-        printf("Fila Vazia!!\n");
-        return;
-    }
-
-    int fila_posicao = 1;
-
-    printf("GRUPOS NA FILA:\n");
     for (p = l; p != NULL; p = p->prox)
     {
-        printf("%d - Grupo com a Senha:%d\n", fila_posicao, p->senha);
-        fila_posicao++;
+        quant_pessoas += p->pessoas;
     }
+    printf("Quantidade de pessoas na fila:%d\n", quant_pessoas);
+}
+
+// LISTAR NUMERO DE GRUPOS NA FILA
+void fila_numero_de_grupo(Fila *l)
+{
+    int contador = 0;
+    Fila *p;
+    for (p = l; p != NULL; p = p->prox)
+    {
+        contador++;
+    }
+    printf("Grupos na fila:%d\n", contador);
 }

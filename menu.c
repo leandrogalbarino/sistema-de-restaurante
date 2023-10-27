@@ -13,43 +13,101 @@ void esperar_enter()
     getchar(); // Aguarda o Enter ser pressionado
 }
 
-void menu_opcoes(int escolha, Mesa* restaurante, Fila* fila)
+void imprimir_relatorios(int escolha, Mesa *mesas, Fila *fila, Pilha *pratos)
 {
-
     switch (escolha)
     {
     case 1:
-        //1) Chegar (grupo de) clientes ao restaurante (implica em ocupar mesa se há disponibilidade ou ir pra fila de espera)
-        //restaurante = chegar_grupo(restaurante,fila);
+        mesa_pesquisar(mesas);
         break;
+    case 2:
+        mesa_listar(mesas);
+        break;
+    case 3:
+        fila_numero_de_grupo(fila);
+        break;
+    case 5:
+        fila_quant_pessoas(fila);
+        break;
+    case 6:
+        pratos_imprimir(pratos);
+        break;
+    default:
+        break;
+    }
+}
+
+void menu_relatorios(Mesa *mesas, Fila *fila, Pilha *pratos)
+{
+    int escolha;
+    printf("RELATORIOS\n");
+
+    printf("1. Pesquisar mesa.\n");
+    printf("2. Listar todas mesas.\n");
+    printf("3. Listar numero de grupos na fila.\n");
+    printf("4. Listar quantidade de pessoas na fila.\n");
+    printf("5. Listar quantidade de pratos.\n");
+
+    printf("6. Voltar.\n");
+    do
+    {
+        printf("Digite o numero do que deseja imprimir:");
+        scanf("%d", &escolha);
+        if (escolha < 1 || escolha > 6)
+        {
+            printf("POR FAVOR DIGITE UM NUMERO VALIDO!\n");
+            break;
+        }
+        printf("\n");
+    } while (escolha < 1 || escolha > 6);
+    imprimir_relatorios(escolha, mesas, fila, pratos);
+}
+
+void menu_opcoes(int escolha, Mesa **mesas, Fila **fila, Pilha **pratos)
+{
+    switch (escolha)
+    {
+    case 1:
+        // 1) Chegar (grupo de) clientes ao restaurante (implica em ocupar mesa se há disponibilidade ou ir pra fila de espera)
+        // restaurante = chegar_grupo(restaurante,fila);
+        break;
+
     case 2:
         // finalizar refeicao/liberar mesa(liberar a mesa, chamar clientes da fila de espera (se houver), e arrumar mesa)
         break;
+
     case 3:
-        // Desistir de esperar (sair da fila de espera)
+        *fila = fila_sair(*fila);
         break;
+
     case 4:
         // Arrumar mesa (retirar pratos da pilha)
+        Mesa *m = mesa_a_arrumar(*mesas);
+        if (m != NULL)
+            *pratos = pratos_arrumar_mesa(*pratos, m);
         break;
+
     case 5:
-        // Repor pratos (adicionar pratos na pilha)
+        *pratos = repor_pratos(*pratos);
         break;
+
     case 6:
-        // Imprimir pilha de pratos, fila de espera e ocupação das mesas,
+        menu_relatorios(*mesas, *fila, *pratos);
         break;
+
     default:
         break;
     }
     esperar_enter();
 }
 
-void menu(Mesa* restaurante, Fila* fila)
+void menu(Mesa *mesas, Fila *fila, Pilha *pratos)
 {
     char sair;
     int escolha;
     do
     {
-        printf("\tMENU\n");
+        printf("MENU\n");
 
         printf("1. Chegada de Cliente\n");
         printf("2. Liberar Mesa\n");
@@ -72,19 +130,15 @@ void menu(Mesa* restaurante, Fila* fila)
             printf("\n");
         } while (escolha < 1 || escolha > 7);
 
-        menu_opcoes(escolha, restaurante, fila);
+        menu_opcoes(escolha, &mesas, &fila, &pratos);
 
     } while (escolha != 7);
-    // 1) Chegar (grupo de) clientes ao restaurante (implica em ocupar mesa se há disponibilidade ou ir pra fila de espera)
-    // 2) Finalizar refeição/liberar mesa (liberar a mesa, chamar clientes da fila de espera (se houver), e arrumar mesa)
-    // 3) Desistir de esperar (sair da fila de espera)
-    // 4) Arrumar mesa (retirar pratos da pilha)
-    // 5) Repor pratos (adicionar pratos na pilha)
-    // 6) Imprimir pilha de pratos, fila de espera e ocupação das mesas, conforme descrito a seguir:
 }
 
-int main(){
-    Mesa* restaurante = inicializa_mesas();
-    Fila* fila = fila_criar();
-    menu(restaurante, fila);
+int main()
+{
+    Mesa *restaurante = inicializa_mesas();
+    Fila *fila = fila_criar();
+    Pilha *pratos = pilha_criar();
+    menu(restaurante, fila, pratos);
 }
