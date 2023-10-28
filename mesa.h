@@ -1,3 +1,6 @@
+#ifndef MESA_H
+#define MESA_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -29,3 +32,5 @@ Mesa *mesa_a_arrumar(Mesa *mesa);
 void mesa_pesquisar(Mesa *restaurante);
 
 Mesa* chegar_grupo(Mesa* restaurante, Fila* fila);
+
+#endif

@@ -70,7 +70,7 @@ Fila *fila_inserir(Fila *l, int senha)
 
     if (l == NULL)
         return novo;
-    Fila *p;
+    Fila *p = l; // Correção: inicializa p com l
     while (p->prox != NULL)
     {
         p = p->prox;
@@ -78,6 +78,7 @@ Fila *fila_inserir(Fila *l, int senha)
     p->prox = novo;
     return l;
 }
+
 
 // ADICIONA UM GRUPO E CRIA UMA SENHA
 Fila *fila_adicionar_grupo(Fila *l, int tamanho)

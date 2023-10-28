@@ -25,6 +25,8 @@ Mesa *inicializa_mesas()
             {
                 nova_mesa->numero_da_mesa = i * colunas + j + 1; // calcula número único para cada mesa criada
                 nova_mesa->livre = true;
+                nova_mesa->pessoas_sentadas = 0;
+                nova_mesa->comanda = 0;
                 
                 nova_mesa->pratos = 4;
 
@@ -224,16 +226,14 @@ Mesa* chegar_grupo(Mesa* restaurante, Fila* fila){
         while(mesa_atual != NULL && mesa_atual->livre != true){
             mesa_atual = mesa_atual->prox;
         }
-        //se o grupo tiver mais que 4 pessoas
         if(grupo->pessoas > 4){
             mesa_atual->livre = false;
             mesa_atual->pessoas_sentadas = 4;
             grupo->pessoas = grupo->pessoas - 4;
             mesa_atual->comanda = mesa_gerar_comanda();
-
-            fila = fila_inserir(grupo,grupo->senha);
+            // Inserir o restante do grupo na fila
+            fila = fila_inserir(fila, senha); 
         }
-        //senão o grupo possui 4 pessoas
         else{
             mesa_atual->livre = false;
             mesa_atual->pessoas_sentadas = grupo->pessoas;
@@ -241,10 +241,10 @@ Mesa* chegar_grupo(Mesa* restaurante, Fila* fila){
         }
     }
     else{
+        // O grupo vai para a fila diretamente
         fila = fila_inserir(fila,senha);
-        printf("Seu grupo foi adicionado a fila de espera com a senha %d.\n", senha);
+        printf("Seu grupo foi adicionado à fila de espera com a senha %d.\n", senha);
     }
 
     return restaurante;
 }
-

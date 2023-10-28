@@ -65,6 +65,7 @@ void menu_relatorios(Mesa *mesas, Fila *fila, Pilha *pratos)
 
 void menu_opcoes(int escolha, Mesa **mesas, Fila **fila, Pilha **pratos)
 {
+    Mesa *m;
     switch (escolha)
     {
     case 1:
@@ -83,7 +84,7 @@ void menu_opcoes(int escolha, Mesa **mesas, Fila **fila, Pilha **pratos)
 
     case 4:
         // Arrumar mesa (retirar pratos da pilha)
-        Mesa *m = mesa_a_arrumar(*mesas);
+        m = mesa_a_arrumar(*mesas);
         if (m != NULL)
             *pratos = pratos_arrumar_mesa(*pratos, m);
         break;
