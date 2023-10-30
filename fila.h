@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "mesa.h"
 
 struct fila
 {
@@ -21,7 +22,7 @@ Fila *fila_mesa_encontrada(Fila *l);
 
 int fila_gerar_senha(Fila *l);
 
-Fila *fila_inserir(Fila *l, int senha);
+Fila *fila_inserir(Fila *l, int senha, int tamanho);
 
 Fila *fila_adicionar_grupo(Fila *l, int tamanho);
 
@@ -35,8 +36,8 @@ void fila_quant_pessoas(Fila *l);
 
 void fila_numero_de_grupo(Fila *l);
 
-Fila* cria_grupo(Fila* l);
+Fila *cria_grupo(Fila *l);
+
+Fila *chegar_grupo(Mesa *restaurante, Fila *fila);
 
 #endif
-
-

@@ -13,6 +13,33 @@ void esperar_enter()
     getchar(); // Aguarda o Enter ser pressionado
 }
 
+Fila *preparar_mesa(Fila *fila, Mesa *mesas, Pilha *pratos)
+{
+    Mesa *m;
+    m = mesa_a_arrumar(mesas);
+    if (m != NULL)
+    {
+        pratos = pratos_arrumar_mesa(pratos, m);
+        if (m->pratos == 4)
+        {
+            if (fila != NULL)
+            {
+                if (fila->pessoas > 4)
+                {
+                    printf("Foi encontrado uma mesa para 4 membros do seu grupo!!\n");
+                    printf("Ainda ficaram %d na Fila de Espera!!\n", fila->pessoas);
+                }
+                else
+                {
+                    printf("Foi encontrado uma mesa para o primeiro grupo da fila!!\n");
+                }
+                fila = fila_mesa_encontrada(fila);
+            }
+        }
+    }
+    return fila;
+}
+
 void imprimir_relatorios(int escolha, Mesa *mesas, Fila *fila, Pilha *pratos)
 {
     switch (escolha)
@@ -26,10 +53,10 @@ void imprimir_relatorios(int escolha, Mesa *mesas, Fila *fila, Pilha *pratos)
     case 3:
         fila_numero_de_grupo(fila);
         break;
-    case 5:
+    case 4:
         fila_quant_pessoas(fila);
         break;
-    case 6:
+    case 5:
         pratos_imprimir(pratos);
         break;
     default:
@@ -70,7 +97,7 @@ void menu_opcoes(int escolha, Mesa **mesas, Fila **fila, Pilha **pratos)
     {
     case 1:
         // 1) Chegar (grupo de) clientes ao restaurante (implica em ocupar mesa se há disponibilidade ou ir pra fila de espera)
-        *mesas = chegar_grupo(*mesas,*fila);
+        *fila = chegar_grupo(*mesas, *fila);
         break;
 
     case 2:
@@ -84,9 +111,7 @@ void menu_opcoes(int escolha, Mesa **mesas, Fila **fila, Pilha **pratos)
 
     case 4:
         // Arrumar mesa (retirar pratos da pilha)
-        m = mesa_a_arrumar(*mesas);
-        if (m != NULL)
-            *pratos = pratos_arrumar_mesa(*pratos, m);
+        *fila = preparar_mesa(*fila, *mesas, *pratos);
         break;
 
     case 5:
@@ -109,6 +134,7 @@ void menu(Mesa *mesas, Fila *fila, Pilha *pratos)
     int escolha;
     do
     {
+        system("cls");
         printf("MENU\n");
 
         printf("1. Chegada de Cliente\n");

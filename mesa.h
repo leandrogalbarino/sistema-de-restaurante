@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "fila.h"
 
 struct mesa{
     int numero_da_mesa;
@@ -30,7 +29,5 @@ char *mesa_disponibidade(Mesa *mesa);
 Mesa *mesa_a_arrumar(Mesa *mesa);
 
 void mesa_pesquisar(Mesa *restaurante);
-
-Mesa* chegar_grupo(Mesa* restaurante, Fila* fila);
 
 #endif
