@@ -8,23 +8,32 @@ Fila *fila_criar()
     return NULL;
 }
 
+Fila *fila_ultimo_no(Fila *f)
+{
+    Fila *p = f;
+    if (f == NULL)
+    {
+        return f;
+    }
+    while (p->prox != NULL)
+    {
+        p = p->prox;
+    }
+    return p;
+}
+
 // GERA UMA SENHA UNICA
 int fila_gerar_senha(Fila *l)
 {
     int nova_senha;
-    Fila *p = l;
 
     if (l == NULL)
     {
         nova_senha = 1;
         return nova_senha;
     }
-    for(p = l; p != NULL; p = p->prox)
-    {
-        if(p->prox == NULL){
-            break;
-        }
-    }
+    Fila *p = fila_ultimo_no(l);
+
     nova_senha = p->senha + 1;
 
     return nova_senha;
@@ -47,11 +56,12 @@ Fila *fila_remover(Fila *l)
 // QUANDO FOR ENCONTRADO UMA MESA VAZIA, CHAMAR ESSA FUNÇÃO PARA TIRAR 4 PESSOAS DA FILA!!
 Fila *fila_mesa_encontrada(Fila *l)
 {
-    if (l == NULL) {
+    if (l == NULL)
+    {
         printf("Fila Vazia!!\n");
         return NULL; // Retorna NULL para indicar que a fila está vazia.
     }
-        
+
     Fila *nova = l;
     if (l->pessoas > 4)
     {
@@ -65,7 +75,6 @@ Fila *fila_mesa_encontrada(Fila *l)
     return l;
 }
 
-
 // INSERE O GRUPO NA FILA!!
 Fila *fila_inserir(Fila *l, int senha, int tamanho)
 {
@@ -76,11 +85,8 @@ Fila *fila_inserir(Fila *l, int senha, int tamanho)
 
     if (l == NULL)
         return novo;
-    Fila *p = l; // Correção: inicializa p com l
-    while (p->prox != NULL)
-    {
-        p = p->prox;
-    }
+
+    Fila *p = fila_ultimo_no(l);
     p->prox = novo;
     return l;
 }
@@ -100,8 +106,13 @@ Fila *cria_grupo(Fila *l)
 {
     int tamanho;
     Fila *novo;
-    printf("Insira a quantidade de pessoas do seu grupo: ");
-    scanf("%d", &tamanho);
+    do
+    {
+        printf("Insira a quantidade de pessoas do seu grupo: ");
+        scanf("%d", &tamanho);
+        if (tamanho <= 0)
+            printf("Digite um numero valido!!\n");
+    } while (tamanho <= 0);
 
     novo = fila_adicionar_grupo(l, tamanho);
 
@@ -118,7 +129,6 @@ Fila *fila_abandonar(Fila *l, Fila *grupo, int senha)
         p = l->prox;
         free(l);
         return p;
-        // returno o proximo ou NULL, se for o primeiro elemento!!
     }
 
     while (ant->prox != grupo)
@@ -196,19 +206,49 @@ void fila_numero_de_grupo(Fila *l)
     printf("Grupos na fila:%d\n", contador);
 }
 
+void printa_situacao(Fila *f, int pessoas_inicio, int pessoas_fim, int mesas_disponiveis)
+{
+    if (pessoas_inicio != pessoas_fim)
+    {
+        if (pessoas_fim != 0)
+        {
+            if (mesas_disponiveis == 1)
+                printf("Foi encontrado 1 mesa para %d membros do primeiro grupo da fila!!\n", pessoas_inicio - pessoas_fim);
+            else
+            {
+                printf("Foi encontrado %d mesas para ser ocupada por %d membros do primeiro grupo da fila!!\n", mesas_disponiveis, pessoas_inicio - pessoas_fim);
+            }
+            printf("Ainda ficaram %d na Fila de Espera!!\n", pessoas_fim);
+            printf("SENHA:%d\n\n", f->senha);
+        }
+        else
+        {
+            printf("Foi encontrado %d mesa(s) para ocupar todos membros do primeiro grupo da fila!!\n", mesas_disponiveis);
+        }
+    }
+    else
+    {
+        Fila *p = fila_ultimo_no(f);
+        printf("Seu grupo foi adicionado a fila!!\n");
+        printf("SENHA:%d\n\n", p->senha);
+    }
+}
 
 Fila *chegar_grupo(Mesa *restaurante, Fila *fila)
 {
     Mesa *mesa_atual = restaurante;
+    int mesas_disponiveis = 0;
+
     if (restaurante == NULL)
     {
         printf("Restaurante nao possui mesas!\n");
         return NULL;
     }
     Fila *f = cria_grupo(fila);
+    // verifica se pessoas > 0
+
     int pessoas_inicio = f->pessoas;
-    int pessoas_fim = f->pessoas;
-    bool mesa_livre = verificar_mesas_livre(restaurante);
+    int pessoas_fim = pessoas_inicio;
 
     while (mesa_atual != NULL && f != NULL)
     {
@@ -225,46 +265,20 @@ Fila *chegar_grupo(Mesa *restaurante, Fila *fila)
             {
                 mesa_atual->pessoas_sentadas = 4;
             }
-            // OK
             f = fila_mesa_encontrada(f);
 
             if (f == NULL)
                 pessoas_fim = 0;
             else
                 pessoas_fim = f->pessoas;
+
+            mesas_disponiveis++;
         }
 
         mesa_atual = mesa_atual->prox;
     }
-    
-    if (pessoas_inicio != pessoas_fim)
-    {
-        if (pessoas_fim != 0)
-        {
-            printf("Foi encontrado uma mesa para %d membros do seu grupo!!\n", pessoas_inicio - pessoas_fim);
-            printf("Ainda ficaram %d na Fila de Espera!!\n", pessoas_fim);
-            printf("SENHA:%d\n\n", f->senha);
-        }
-        else
-        {
-            printf("Foi encontrado uma(ou mais) mesa(s) para o seu grupo!!\n");
-        }
-    }
-    if (mesa_livre == true && (pessoas_inicio == pessoas_fim))
-    {
-        printf("Foi encontrado uma(ou mais) mesa(s) para o seu grupo!!\n");
-    }
-    if (!mesa_livre)
-    {
-        Fila *p = f;
-        while (p->prox != NULL)
-        {
-            p = p->prox;
-            break;
-        }
-        printf("Seu grupo foi adicionado a fila!!\n");
-        printf("SENHA:%d\n\n", p->senha);
-    }
+
+    printa_situacao(f, pessoas_inicio, pessoas_fim, mesas_disponiveis);
 
     return f;
 }

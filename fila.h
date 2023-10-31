@@ -38,6 +38,13 @@ void fila_numero_de_grupo(Fila *l);
 
 Fila *cria_grupo(Fila *l);
 
+Fila *fila_ultimo_no(Fila *f);
+
+void printa_situacao(Fila *f, int pessoas_inicio, int pessoas_fim, int mesas_disponiveis);
+
 Fila *chegar_grupo(Mesa *restaurante, Fila *fila);
+
+
+
 
 #endif

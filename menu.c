@@ -13,27 +13,34 @@ void esperar_enter()
     getchar(); // Aguarda o Enter ser pressionado
 }
 
-Fila *preparar_mesa(Fila *fila, Mesa *mesas, Pilha *pratos)
+Fila *arrumar_mesa(Fila *fila, Mesa *mesas, Pilha **pratos)
 {
     Mesa *m;
     m = mesa_a_arrumar(mesas);
     if (m != NULL)
     {
-        pratos = pratos_arrumar_mesa(pratos, m);
+        *pratos = pratos_arrumar_mesa(*pratos, m);
         if (m->pratos == 4)
         {
             if (fila != NULL)
             {
                 if (fila->pessoas > 4)
                 {
-                    printf("Foi encontrado uma mesa para 4 membros do seu grupo!!\n");
+                    printf("Foi encontrado uma mesa para 4 membros do primeiro grupo da fila!!\n");
                     printf("Ainda ficaram %d na Fila de Espera!!\n", fila->pessoas);
+                    m->pessoas_sentadas = 4;
                 }
                 else
                 {
-                    printf("Foi encontrado uma mesa para o primeiro grupo da fila!!\n");
+                    printf("Foi encontrado uma mesa para o restante do primeiro grupo da fila!!\n");
+                    m->pessoas_sentadas = fila->pessoas;
                 }
+                m->livre = false;
                 fila = fila_mesa_encontrada(fila);
+            }
+            else
+            {
+                m->livre = true;
             }
         }
     }
@@ -111,7 +118,7 @@ void menu_opcoes(int escolha, Mesa **mesas, Fila **fila, Pilha **pratos)
 
     case 4:
         // Arrumar mesa (retirar pratos da pilha)
-        *fila = preparar_mesa(*fila, *mesas, *pratos);
+        *fila = arrumar_mesa(*fila, *mesas, pratos);
         break;
 
     case 5:

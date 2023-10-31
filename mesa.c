@@ -74,10 +74,9 @@ Mesa *mesa_liberar(Mesa *restaurante)
     // PODE TIRAR O ELSE IF, EU ACHO! ass leandro
     else if (mesa_atual->numero_da_mesa == mesa)
     {
-        if (mesa_atual->livre == false)
+        if (mesa_atual->pratos > 0)
         {
             printf("A mesa %d foi liberada com sucesso, volte sempre!!\n", mesa_atual->numero_da_mesa);
-            mesa_atual->livre = true;
             mesa_atual->pessoas_sentadas = 0;
             mesa_atual->pratos = 0;
         }
@@ -145,14 +144,14 @@ Mesa *mesa_a_arrumar(Mesa *mesa)
     {
         if (numero_mesa == m->numero_da_mesa)
         {
-            if (m->livre)
+            if (m->pratos == 0 && m->pessoas_sentadas == 0)
             {
-                if (m->pratos == 4)
-                {
-                    printf("A mesa ja esta arrumada!!\n");
-                    return NULL;
-                }
                 break;
+            }
+            else if (m->pratos == 4 && m->pessoas_sentadas == 0)
+            {
+                printf("A mesa ja esta arrumada!!\n");
+                return NULL;
             }
             else
             {
@@ -221,7 +220,6 @@ bool verificar_mesas_livre(Mesa *restaurante)
 
     return false;
 }
-
 
 // Fila *chegar_grupo(Mesa *restaurante, Fila *fila)
 // {
