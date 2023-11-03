@@ -5,6 +5,8 @@
 #include "fila.h"
 #include "pratos.h"
 
+// CRIA O RESTAURANTE COM A QUANTIDADE DE MESA QUE O USUARIO COLOCAR QUANDO PEDE AS DIMENSOES 
+// ESSA FUNCAO E CHAMADA AUTOMATICAMENTE PELO PROGRAMA, PARA INICIALIZAR AS MESAS
 Mesa *inicializa_mesas()
 {
     Mesa *restaurante = NULL;
@@ -41,12 +43,12 @@ Mesa *inicializa_mesas()
     return restaurante;
 }
 
+// RETORNA O NO DA MESA, SE FOR ENCONTRADA, SE NAO RETORNA NULL
 Mesa *mesa_procura(Mesa *m, int num_mesa)
 {
     Mesa *mesa_atual = m;
     while (mesa_atual != NULL)
     {
-        // Assim funciona, antes, podia mesa_atual fica == NULL e te achado a mesa, porque o ultimo no ia pro proximo;
         if (mesa_atual->numero_da_mesa == num_mesa)
         {
             break;
@@ -55,12 +57,16 @@ Mesa *mesa_procura(Mesa *m, int num_mesa)
     }
     return mesa_atual;
 }
-// Clientes podem finalizar a refeição e sair do restaurante, liberando as mesas; com isso, os clientes que por ventura
-// aguardam na fila podem sentar-se (saindo da fila de espera).
+
+// LIBERA UMA MESA
 Mesa *mesa_liberar(Mesa *restaurante)
 {
     int mesa;
     Mesa *mesa_atual = restaurante;
+    if(restaurante == NULL){
+        printf("O restaurante nao possui mesas!!\n");
+        return restaurante;
+    }
 
     printf("Digite o numero da sua mesa para liberar: ");
     scanf("%d", &mesa);
@@ -71,7 +77,6 @@ Mesa *mesa_liberar(Mesa *restaurante)
     {
         printf("Nao foi encontrado a sua mesa para liberar.\n");
     }
-    // PODE TIRAR O ELSE IF, EU ACHO! ass leandro
     else if (mesa_atual->numero_da_mesa == mesa)
     {
         if (mesa_atual->pratos > 0)
@@ -88,6 +93,7 @@ Mesa *mesa_liberar(Mesa *restaurante)
     return restaurante;
 }
 
+// GERA UMA COMANDA UNICA PARA CADA MESA
 int mesa_gerar_comanda()
 {
     static int comanda = 1;
@@ -95,7 +101,7 @@ int mesa_gerar_comanda()
     return comanda++;
 }
 
-//  ADICIONEI ESSA FUNCAO PARA PRINTAR: DISPONIVEL OU INDISPONIVEL
+// FUNCAO PARA RETORNA UMA STRING ESCRITA "DISPONIVEL" OU "INDISPONIVEL"
 char *mesa_disponibidade(Mesa *mesa)
 {
     if (mesa->livre)
@@ -105,13 +111,12 @@ char *mesa_disponibidade(Mesa *mesa)
     return "Indisponivel";
 }
 
-// lista todas as mesas
-// PODE COLOCAR QUE NAO EXISTEM MESA, SE O RESTAURANTE NAO POSSUIR MESAS
+// PRINTA TODAS AS MESAS
 void mesa_listar(Mesa *restaurante)
 {
     Mesa *mesas = restaurante;
 
-    printf("\tMesas:\n");
+    printf("Mesas:\n");
     if (restaurante == NULL)
     {
         printf("Nao existem mesas no restaurante!\n");
@@ -119,7 +124,7 @@ void mesa_listar(Mesa *restaurante)
     }
 
     while (mesas != NULL)
-    { // percore todas as mesas do restaurante e imprime elas
+    { 
         printf("Numero da Mesa: %d\n", mesas->numero_da_mesa);
         printf("Pessoas sentadas: %d\n", mesas->pessoas_sentadas);
         printf("Disponibilidade: %s\n", mesa_disponibidade(mesas));
@@ -128,17 +133,19 @@ void mesa_listar(Mesa *restaurante)
     }
 }
 
+// RETORNA O NO DA MESA A SER ARRUMA, ISSO SE FOR POSSIVEL!
 Mesa *mesa_a_arrumar(Mesa *mesa)
 {
     int numero_mesa;
-    printf("Digite o numero da mesa que deseja arrumar:");
-    scanf("%d", &numero_mesa);
-
     if (mesa == NULL)
     {
         printf("Nao existem mesas no restaurante!!\n");
         return NULL;
     }
+    
+    printf("Digite o numero da mesa que deseja arrumar:");
+    scanf("%d", &numero_mesa);
+
     Mesa *m;
     for (m = mesa; m != NULL; m = m->prox)
     {
@@ -168,6 +175,7 @@ Mesa *mesa_a_arrumar(Mesa *mesa)
     return m;
 }
 
+// PESQUISA UMA MESA
 void mesa_pesquisar(Mesa *restaurante)
 {
     int pesquisa;
@@ -204,60 +212,3 @@ void mesa_pesquisar(Mesa *restaurante)
 
     } while (tecla == 's');
 }
-
-bool verificar_mesas_livre(Mesa *restaurante)
-{
-    Mesa *mesa_atual = restaurante;
-
-    while (mesa_atual != NULL)
-    { // percore todas as mesas do restaurante
-        if (mesa_atual->livre == true)
-        {
-            return true;
-        }
-        mesa_atual = mesa_atual->prox;
-    }
-
-    return false;
-}
-
-// Fila *chegar_grupo(Mesa *restaurante, Fila *fila)
-// {
-//     Mesa *mesa_atual = restaurante;
-//     if (restaurante == NULL)
-//     {
-//         printf("Restaurante nao possui mesas!\n");
-//         return NULL;
-//     }
-
-//     Fila *f = fila;
-//     Fila *grupo = cria_grupo(f);
-
-//     while (mesa_atual != NULL && grupo->pessoas > 0)
-//     {
-//         if (mesa_atual->livre)
-//         {
-//             mesa_atual->livre = false;
-//             mesa_atual->comanda = mesa_gerar_comanda();
-
-//             if (grupo->pessoas <= 4)
-//             {
-//                 mesa_atual->pessoas_sentadas = grupo->pessoas;
-//             }
-//             else
-//             {
-//                 mesa_atual->pessoas_sentadas = 4;
-//             }
-//             f = fila_mesa_encontrada(f);
-//         }
-
-//         mesa_atual = mesa_atual->prox;
-//     }
-
-//     if (grupo->pessoas > 0)
-//     {
-//         printf("Seu grupo foi adicionado a fila de espera com a senha %d.\n", grupo->senha);
-//     }
-
-//     return f;
-// }

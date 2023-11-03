@@ -4,7 +4,7 @@
 #include "pratos.h"
 #include "mesa.h"
 
-// CRIA PIHLA VAZIA
+// CRIA PILHA VAZIA
 Pilha *pilha_criar()
 {
     return NULL;
@@ -13,7 +13,6 @@ Pilha *pilha_criar()
 // CRIA UM NOVO NO NO TOPO DA PILHA
 Pilha *pilha_empilhar(Pilha *p)
 {
-    // SE p == NULL, então : novo->prox == NULL | se p != NULL novo->prox = p
     Pilha *novo = (Pilha *)malloc(sizeof(Pilha));
     novo->prox = p;
     return novo;
@@ -41,7 +40,7 @@ int verif_pratos_limpos(Pilha *pratos)
     return pratos_limpos;
 }
 
-//  REPOE PRATOS
+// REPOE PRATOS
 Pilha *repor_pratos(Pilha *pratos)
 {
     int quant_pratos;

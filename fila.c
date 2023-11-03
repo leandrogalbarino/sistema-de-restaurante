@@ -223,7 +223,7 @@ void printa_situacao(Fila *f, int pessoas_inicio, int pessoas_fim, int mesas_dis
         }
         else
         {
-            printf("Foi encontrado %d mesa(s) para ocupar todos membros do primeiro grupo da fila!!\n", mesas_disponiveis);
+            printf("Foi encontrado %d mesa(s) para ocupar todos membros do grupo!!\n", mesas_disponiveis);
         }
     }
     else
@@ -245,7 +245,6 @@ Fila *chegar_grupo(Mesa *restaurante, Fila *fila)
         return NULL;
     }
     Fila *f = cria_grupo(fila);
-    // verifica se pessoas > 0
 
     int pessoas_inicio = f->pessoas;
     int pessoas_fim = pessoas_inicio;

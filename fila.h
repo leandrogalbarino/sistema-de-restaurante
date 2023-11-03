@@ -44,7 +44,4 @@ void printa_situacao(Fila *f, int pessoas_inicio, int pessoas_fim, int mesas_dis
 
 Fila *chegar_grupo(Mesa *restaurante, Fila *fila);
 
-
-
-
 #endif

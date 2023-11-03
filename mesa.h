@@ -20,8 +20,6 @@ Mesa *mesa_liberar(Mesa *restaurante);
 
 int mesa_gerar_comanda();
 
-bool verificar_mesas_livre(Mesa *restaurante);
-
 void mesa_listar(Mesa *restaurante);
 
 char *mesa_disponibidade(Mesa *mesa);
